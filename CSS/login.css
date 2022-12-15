@@ -95,7 +95,8 @@ div.logo img {
 div.username,
 div.password,
 div.confirm-password,
-div.key {
+div.key,
+div.bank {
     position: relative;
     margin: 0.3rem 1rem;
 }

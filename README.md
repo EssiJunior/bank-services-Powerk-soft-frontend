@@ -3,5 +3,6 @@
 **Description:** Frontend side of a web application offering basic bank services.
 
 **Technologies:** 
-> - [FastAPI](https://fastapi.tiangolo.com/) (Python framework)
-> + SQL DB (PostgreSQL DBMS)
+> - HTML
+> + CSS
+> * JavaScript

@@ -1,26 +1,26 @@
-const adminRegistrationForm = document.querySelector("#admin-registration-form")
+const registrationForm = document.querySelector("#register-form")
 const messageContainer = document.querySelector(".message-container")
 const validationContainer = document.querySelector(".validation")
 
 let validated = false
 async function validateForm() {
     try {
-        var login = document.querySelector("#login-text").value
+        var username = document.querySelector("#username-text").value
         var password = document.querySelector("#password-text").value
         var confirmPassword = document.querySelector("#confirm-password-text").value
-        var key = document.querySelector("#key-text").value
+        var bank = document.querySelector("#bank-text").value
 
-        const response = await fetch("http://localhost:8000/admin", {
+        const response = await fetch("http://localhost:8000/user", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json'
             },
             body: JSON.stringify({
-                login: login,
-                mot_de_passe: password,
-                confirmer_mot_de_passe: confirmPassword,
-                cle_superAdmin: key
+                username: username,
+                password: password,
+                confirm_password: confirmPassword,
+                bank: bank
             })
         })
 
@@ -30,13 +30,15 @@ async function validateForm() {
             validated = true
         }
 
-        return response.json()
+        let result = response.json()
+        console.log(result)
+        return result
     } catch (e) {
         console.log(e)
     }
 }
 
-async function displayErrorMesage(messageContainer) {
+async function displayErrorMessage(messageContainer) {
 
     let response = await validateForm()
     if (validated) {
@@ -44,6 +46,7 @@ async function displayErrorMesage(messageContainer) {
         messageContainer.innerHTML = ``
         validationContainer.setAttribute("style", "margin-top:6rem;")
         console.log(response)
+        window.open("../main.html", "_self")
     } else {
         messageContainer.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -51,8 +54,8 @@ async function displayErrorMesage(messageContainer) {
         validationContainer.setAttribute("style", "margin-top:2.9rem;")
     }
 }
-adminRegistrationForm.addEventListener('submit', function(event) {
+registrationForm.addEventListener('submit', function(event) {
     event.preventDefault()
 
-    displayErrorMesage(messageContainer)
+    displayErrorMessage(messageContainer)
 })

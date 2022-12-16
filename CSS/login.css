@@ -136,7 +136,8 @@ div.bank {
     color: var(--primary);
 }
 
-#login-form {
+#login-form,
+#register-form {
     display: flex;
     flex-direction: column;
     align-items: center;

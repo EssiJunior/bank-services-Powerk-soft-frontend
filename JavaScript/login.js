@@ -1,4 +1,4 @@
-const adminLoginForm = document.querySelector("#admin-login-form")
+const adminLoginForm = document.querySelector("#login-form")
 const messageContainer = document.querySelector(".message-container")
 const validationContainer = document.querySelector(".validation")
 
@@ -6,16 +6,16 @@ let validated = false
 async function validateForm() {
     try {
 
-        var login = document.querySelector("#login-text").value
+        var username = document.querySelector("#username-text").value
         var password = document.querySelector("#password-text").value
 
-        const response = await fetch("http://localhost:8000/admin/login", {
+        const response = await fetch("http://localhost:8000/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'accept': 'application/json'
             },
-            body: `username=${login}&password=${password}`
+            body: `username=${username}&password=${password}`
         })
 
         if (!response.ok) {
@@ -38,7 +38,16 @@ async function displayErrorMesage(messageContainer) {
         messageContainer.innerHTML = ``
         validationContainer.setAttribute("style", "margin-top:6rem;")
         console.log(response)
-        window.open("../HTML/dashboard_admin.html", "_self")
+
+        let url = ""
+        if (response["user"] === "admin") {
+            url = "../dashboard_admin.html"
+        } else if (response["user"] === "user") {
+            url = "../main.html"
+        } else {
+            console.log("Unknown user type.")
+        }
+        window.open(url, "_self")
 
     } else {
         messageContainer.innerHTML = `

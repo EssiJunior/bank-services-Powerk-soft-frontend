@@ -155,7 +155,7 @@ div.message-container {
 
 div.message-container i {
     color: red;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 div.message-container p.error {
@@ -182,7 +182,7 @@ p.footer-1 span {
 }
 
 #submit-button {
-    background-color: var(--primary);
+    background-color: #020b3b;
     border: 1px solid var(--primary);
     border-radius: 5px;
     width: 6rem;
@@ -193,7 +193,7 @@ p.footer-1 span {
 }
 
 #submit-button:hover {
-    background-color: rgb(5, 77, 53);
+    background-color: var(--primary);
 }
 
 

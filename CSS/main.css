@@ -167,6 +167,7 @@ div.main div.section .actions div {
     padding: 1rem 2rem;
     margin: 1rem 0;
     color: white;
+    cursor: pointer;
 }
 
 div.main div.section .actions div i {
@@ -293,3 +294,104 @@ div.items div.texts a {
         padding: 5rem 1rem;
     }
 }
+
+
+/* form - start */
+
+div.amount {
+    position: relative;
+    margin: 0.3rem 1rem;
+}
+
+.input-area {
+    outline: none;
+    border: 2px solid var(--secondary);
+    padding: 16px 13px;
+    width: 15rem;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.input-area:valid+.label {
+    top: 5px;
+    padding: 0 3px;
+    font-size: 14px;
+    color: #8d8d8d;
+}
+
+.input-area:focus {
+    border: 2px solid var(--primary);
+}
+
+.label {
+    color: var(--secondary);
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    background: #ffffff;
+}
+
+.input-area:focus+.label {
+    top: 5px;
+    padding: 0 3px;
+    font-size: 14px;
+    color: var(--primary);
+}
+
+#deposit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.message-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    margin-bottom: 0;
+}
+
+div.message-container i {
+    color: red;
+    font-size: 1.5rem;
+}
+
+div.message-container p.error {
+    color: red;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+div.validation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+}
+
+#submit-button,
+#back-button {
+    background-color: #020b3b;
+    border: 1px solid var(--primary);
+    border-radius: 5px;
+    width: 10rem;
+    color: white;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#submit-button:hover,
+#submit-button:hover {
+    background-color: var(--primary);
+}
+
+div.form {
+    height: 40vh;
+}
+
+
+/* form - end */

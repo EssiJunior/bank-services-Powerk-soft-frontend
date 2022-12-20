@@ -157,6 +157,8 @@ div.main div.section .actions {
     display: grid;
     grid-template-columns: 1fr;
     margin: 2rem 0;
+    justify-content: center;
+    align-items: center;
 }
 
 div.main div.section .actions div {
@@ -298,7 +300,8 @@ div.items div.texts a {
 
 /* form - start */
 
-div.amount {
+div.amount,
+div.username {
     position: relative;
     margin: 0.3rem 1rem;
 }
@@ -338,7 +341,9 @@ div.amount {
     color: var(--primary);
 }
 
-#deposit-form {
+#deposit-form,
+#transfer-form,
+#withdraw-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -378,14 +383,17 @@ div.validation {
     border: 1px solid var(--primary);
     border-radius: 5px;
     width: 10rem;
+    height: 2rem;
     color: white;
     font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+    margin: 0 1rem;
 }
 
 #submit-button:hover,
-#submit-button:hover {
+#back-button:hover {
     background-color: var(--primary);
 }
 

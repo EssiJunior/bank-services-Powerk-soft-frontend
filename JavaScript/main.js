@@ -68,6 +68,7 @@ async function getUser() {
 let amount = 0
 const depositForm = getElement("#deposit-form")
 const withdrawForm = getElement("#withdraw-form")
+const transferForm = getElement("#transfer-form")
 
 depositForm.addEventListener('submit', function(event) {
     event.preventDefault()
@@ -80,6 +81,11 @@ withdrawForm.addEventListener('submit', function(event) {
 
     updateValues("retrieve")
 })
+transferForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+    updateInfoTransfer()
+})
 async function transaction(amount, transactionID) {
     try {
         const response = await fetch(`http://localhost:8000/user/${transactionID}`, {
@@ -88,7 +94,29 @@ async function transaction(amount, transactionID) {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({ 'amount': amount, 'token': tokenD })
+            body: JSON.stringify({
+                'amount': amount,
+                'token': tokenD
+            })
+        }).then((res) => res.json())
+
+        result = response
+        console.log(result)
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+async function transferToUser(amount, toUsername) {
+    try {
+        const response = await fetch(`http://localhost:8000/user/transfer`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ 'amount': amount, 'token': tokenD, "to_user": toUsername })
         }).then((res) => res.json())
 
         result = response
@@ -111,6 +139,18 @@ async function updateValues(transactionID) {
 
     }
     let response = await transaction(amount, transactionID)
+
+    money.innerHTML = response.new_balance
+}
+
+async function updateInfoTransfer() {
+    const transferAmount = getElement("#transfer-amount-text").value
+    const toUser = getElement("#transfer-username-text").value
+
+    amount = parseInt(transferAmount)
+
+    let response = await transferToUser(amount, toUser)
+
 
     money.innerHTML = response.new_balance
 }

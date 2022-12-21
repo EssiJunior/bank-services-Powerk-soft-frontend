@@ -67,15 +67,22 @@ async function getUser() {
 }
 let amount = 0
 const depositForm = getElement("#deposit-form")
+const withdrawForm = getElement("#withdraw-form")
 
 depositForm.addEventListener('submit', function(event) {
     event.preventDefault()
 
-    updateValues()
+    updateValues("deposit")
 })
-async function depositInAccount(amount) {
+
+withdrawForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+    updateValues("retrieve")
+})
+async function transaction(amount, transactionID) {
     try {
-        const response = await fetch("http://localhost:8000/user/deposit", {
+        const response = await fetch(`http://localhost:8000/user/${transactionID}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -92,12 +99,19 @@ async function depositInAccount(amount) {
     }
 }
 
-async function updateValues() {
+async function updateValues(transactionID) {
     const depositValue = getElement("#deposit-amount-text").value
-    amount = parseInt(depositValue)
-    let response = await depositInAccount(amount)
+    const withdrawValue = getElement("#withdraw-amount-text").value
 
-    console.log(response.new_balance)
+    if (transactionID === "deposit") {
+        amount = parseInt(depositValue)
+
+    } else if (transactionID === "retrieve") {
+        amount = parseInt(withdrawValue)
+
+    }
+    let response = await transaction(amount, transactionID)
+
     money.innerHTML = response.new_balance
 }
 

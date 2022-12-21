@@ -69,6 +69,7 @@ let amount = 0
 const depositForm = getElement("#deposit-form")
 const withdrawForm = getElement("#withdraw-form")
 const transferForm = getElement("#transfer-form")
+let validated = false
 
 depositForm.addEventListener('submit', function(event) {
     event.preventDefault()
@@ -101,6 +102,13 @@ async function transaction(amount, transactionID) {
         }).then((res) => res.json())
 
         result = response
+
+
+        if (result.detail) {
+            validated = false
+        } else {
+            validated = true
+        }
         console.log(result)
         return result
     } catch (e) {
@@ -120,7 +128,16 @@ async function transferToUser(amount, toUsername) {
         }).then((res) => res.json())
 
         result = response
+
+
+        if (result.detail) {
+            validated = false
+        } else {
+            validated = true
+        }
+
         console.log(result)
+        console.log(validated)
         return result
     } catch (e) {
         console.log(e)
@@ -130,29 +147,59 @@ async function transferToUser(amount, toUsername) {
 async function updateValues(transactionID) {
     const depositValue = getElement("#deposit-amount-text").value
     const withdrawValue = getElement("#withdraw-amount-text").value
-
+    let message = getElement(".deposit-message-container")
     if (transactionID === "deposit") {
         amount = parseInt(depositValue)
+        message = getElement(".deposit-message-container")
 
     } else if (transactionID === "retrieve") {
+        message = getElement(".withdraw-message-container")
         amount = parseInt(withdrawValue)
 
     }
+
     let response = await transaction(amount, transactionID)
 
-    money.innerHTML = response.new_balance
+    if (validated) {
+
+        money.innerHTML = response.new_balance
+        message.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p class="error">${transactionID} of ${response.amount} CFA successful.</p>`
+
+        message.setAttribute("style", "color:green;")
+    } else {
+        message.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p class="error">${response.detail}</p>`
+        message.setAttribute("style", "color:red;")
+
+    }
 }
 
 async function updateInfoTransfer() {
     const transferAmount = getElement("#transfer-amount-text").value
     const toUser = getElement("#transfer-username-text").value
-
+    const message = getElement(".transfer-message-container")
     amount = parseInt(transferAmount)
 
+
     let response = await transferToUser(amount, toUser)
+    if (validated) {
+        money.innerHTML = response.new_balance
+        message.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p class="error">Transfer of ${response.amount} CFA to ${response.to_user} successful.</p>`
 
+        message.setAttribute("style", "color:green;")
+    } else {
+        message.innerHTML = `
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p class="error">${response.detail}</p>`
+        message.setAttribute("style", "color:red;")
 
-    money.innerHTML = response.new_balance
+    }
+
 }
 
 async function initializeValues() {

@@ -96,6 +96,7 @@ div.header div.profile div.logout {
     border-left: 1px solid white;
     color: white;
     padding-left: 0.5;
+    cursor: pointer;
 }
 
 div.header div.profile div.logout p {
@@ -104,7 +105,7 @@ div.header div.profile div.logout p {
 
 div.header div.profile div.user p {
     text-align: start;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     width: 7rem;
     color: white;
 }
@@ -148,8 +149,9 @@ div.main div.section .balance h3 {
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
     border-radius: 2rem;
-    padding: 0 2rem;
-    font-family: "Arial Narrow", Arial, sans-serif;
+    margin-top: 1rem;
+    padding: 0.3rem 3rem;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
 }
 
 div.main div.section .actions {
@@ -165,7 +167,7 @@ div.main div.section .actions div.deposit,
 div.main div.section .actions div.transfer,
 div.main div.section .actions div.retrieve {
     display: flex;
-    background-color: blue;
+    background-color: var(--primary);
     justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
@@ -287,7 +289,7 @@ div.main div.section .actions div.username {
     justify-content: center;
 }
 
-div.main div.section .actions div.message-container {
+div.main div.section .actions div.message {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -297,13 +299,11 @@ div.main div.section .actions div.message-container {
     margin-bottom: 0;
 }
 
-div.main div.section .actions div.message-container i {
-    color: red;
+div.main div.section .actions div.message i {
     font-size: 1.5rem;
 }
 
-div.main div.section .actions div.message-container p.error {
-    color: red;
+div.main div.section .actions div.message p.error {
     padding-left: 1rem;
     padding-right: 1rem;
 }
@@ -333,8 +333,12 @@ div.main div.section .actions div.validation {
     margin: 0 1rem;
 }
 
-#submit-button:hover,
-#back-button:hover {
+#submit-button-1:hover,
+#submit-button-2:hover,
+#submit-button-3:hover,
+#back-button-1:hover,
+#back-button-2:hover,
+#back-button-3:hover {
     background-color: var(--primary);
 }
 
@@ -354,7 +358,7 @@ div.main div.section .actions div.form {
     div.header div.profile div.user p {
         text-align: start;
         font-size: 0.9rem;
-        width: 14rem;
+        width: 9rem;
     }
     div.header div.profile div.logout p {
         font-size: 0.9rem;
@@ -406,7 +410,7 @@ div.main div.section .actions div.form {
     div.header div.profile div.user p {
         text-align: start;
         font-size: 1rem;
-        width: 18rem;
+        width: 12rem;
     }
     div.header div.profile div.logout p {
         font-size: 1rem;

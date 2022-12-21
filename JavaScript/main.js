@@ -164,7 +164,7 @@ async function updateValues(transactionID) {
 
         money.innerHTML = response.new_balance
         message.innerHTML = `
-        <i class="fa-solid fa-triangle-exclamation"></i>
+        <i class="fa-solid fa-check"></i>
         <p class="error">${transactionID} of ${response.amount} CFA successful.</p>`
 
         message.setAttribute("style", "color:green;")
@@ -175,6 +175,7 @@ async function updateValues(transactionID) {
         message.setAttribute("style", "color:red;")
 
     }
+
 }
 
 async function updateInfoTransfer() {
@@ -188,7 +189,7 @@ async function updateInfoTransfer() {
     if (validated) {
         money.innerHTML = response.new_balance
         message.innerHTML = `
-        <i class="fa-solid fa-triangle-exclamation"></i>
+        <i class="fa-solid fa-check"></i>
         <p class="error">Transfer of ${response.amount} CFA to ${response.to_user} successful.</p>`
 
         message.setAttribute("style", "color:green;")

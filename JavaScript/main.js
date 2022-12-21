@@ -1,112 +1,173 @@
-const deposit = document.querySelector(".deposit")
-const retrieve = document.querySelector(".retrieve")
-const transfer = document.querySelector(".transfer")
+const getElement = (selector) => {
+    const element = document.querySelector(selector)
 
-const actions = document.querySelector(".actions")
-let backButton = document.querySelector("#back-button")
+    if (element) return element
+    throw Error(
+        `Please double check your class names, there is no selector ${selector}`
+    )
+}
+
+async function getUsername() {
+    try {
+        const response = await fetch("http://localhost:8000/user")
+
+        if (!response.ok) {
+            validated = false
+        } else {
+            validated = true
+        }
+
+        let result = response.json()
+        console.log(result)
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+const deposit = getElement(".deposit")
+const retrieve = getElement(".retrieve")
+const transfer = getElement(".transfer")
+
+const form1 = getElement(".form-1")
+
+const form2 = getElement(".form-2")
+
+const form3 = getElement(".form-3")
+
+const actions = getElement(".actions")
+const backButton1 = getElement("#back-button-1")
+const backButton2 = getElement("#back-button-2")
+const backButton3 = getElement("#back-button-3")
+
+const username = getElement("#username")
+
+const balance = getElement("#money")
+
+const tokenD = window.localStorage.getItem("token")
+const logout = getElement(".logout")
+
+console.log(tokenD)
+async function getUser() {
+    try {
+        const response = await fetch("http://localhost:8000/user/this", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ 'token': tokenD })
+        }).then((res) => res.json())
+
+        result = response
+        console.log(result)
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+let amount = 0
+const depositForm = getElement("#deposit-form")
+
+depositForm.addEventListener('submit', function(event) {
+    event.preventDefault()
+
+    updateValues()
+})
+async function depositInAccount(amount) {
+    try {
+        const response = await fetch("http://localhost:8000/user/deposit", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ 'amount': amount, 'token': tokenD })
+        }).then((res) => res.json())
+
+        result = response
+        console.log(result)
+        return result
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+async function updateValues() {
+    const depositValue = getElement("#deposit-amount-text").value
+    amount = parseInt(depositValue)
+    let response = await depositInAccount(amount)
+
+    console.log(response.new_balance)
+    money.innerHTML = response.new_balance
+}
+
+async function initializeValues() {
+    let user = await getUser()
+    console.log(user.username)
+
+    username.innerHTML = user.username
+    money.innerHTML = user.money
+}
+
+initializeValues()
 
 deposit.addEventListener('click', function(event) {
     event.preventDefault()
 
-    html = `
-    <div class="form">
-        <form action="" id="deposit-form">
-        
-            <div class="amount">
-                <input type="amount" class="input-area" required id="amount-text" />
-                <label for="amount-text" class="label">Amount</label>
-
-            </div>
-            <div class="message-container">
-
-            </div>
-            <div class="validation">
-            <input type="button" value="Back" id="back-button">
-
-            <input type="submit" value="Deposit" id="submit-button">
-
-            </div>
-        </form>
-    </div>`
-    actions.innerHTML = html
-
-
+    deposit.style.display = "none";
+    retrieve.style.display = "none";
+    transfer.style.display = "none";
+    form1.style.display = "block";
 })
 retrieve.addEventListener('click', function(event) {
     event.preventDefault()
 
-    html = `
-    <div class="form">
-        <form action="" id="withdraw-form">
-        
-            <div class="amount">
-                <input type="amount" class="input-area" required id="amount-text" />
-                <label for="amount-text" class="label">Amount</label>
-
-            </div>
-            <div class="message-container">
-
-            </div>
-            <div class="validation">
-            <input type="button" value="Back" id="back-button">
-
-            <input type="submit" value="Withdraw" id="submit-button">
-
-            </div>
-        </form>
-    </div>`
-    actions.innerHTML = html
-
-
+    deposit.style.display = "none";
+    retrieve.style.display = "none";
+    transfer.style.display = "none";
+    form2.style.display = "block";
 })
 transfer.addEventListener('click', function(event) {
     event.preventDefault()
 
-    html = `
-    <div class="form">
-        <form action="" id="transfer-form">
-        
-        <div class="amount">
-        <input type="amount" class="input-area" required id="amount-text" />
-        <label for="amount-text" class="label">Amount</label>
 
-    </div>
-    <div class="username">
-        <input type="username" class="input-area" required id="username-text" />
-        <label for="username-text" class="label">to user</label>
-
-    </div>
-            <div class="message-container">
-
-            </div>
-            <div class="validation">
-            <input type="button" value="Back" id="back-button">
-
-            <input type="submit" value="Transfer" id="submit-button">
-
-            </div>
-        </form>
-    </div>`
-    actions.innerHTML = html
-
-
+    deposit.style.display = "none";
+    retrieve.style.display = "none";
+    transfer.style.display = "none";
+    form3.style.display = "block";
 })
-backButton.addEventListener('click', function(event) {
+backButton1.addEventListener('click', function(event) {
     event.preventDefault()
 
-    html = `
-                <div class="deposit">
-                    <i class="fas fa-arrow-down-to-bracket"></i>
-                    <h3>Deposit ?</h3>
-                </div>
-                <div class="retrieve">
-                    <i class="fas fa-arrow-up-from-bracket"></i>
-                    <h3>Withdraw ?</h3>
-                </div>
-                <div class="transfer">
-                    <h3>Send to a friend?</h3>
-                </div>`
-    actions.innerHTML = html
+
+    deposit.style.display = "flex";
+    retrieve.style.display = "flex";
+    transfer.style.display = "flex";
+    form1.style.display = "none";
+})
+backButton2.addEventListener('click', function(event) {
+    event.preventDefault()
 
 
+    deposit.style.display = "flex";
+    retrieve.style.display = "flex";
+    transfer.style.display = "flex";
+    form2.style.display = "none";
+})
+backButton3.addEventListener('click', function(event) {
+    event.preventDefault()
+
+
+    deposit.style.display = "flex";
+    retrieve.style.display = "flex";
+    transfer.style.display = "flex";
+    form3.style.display = "none";
+})
+
+logout.addEventListener('click', function(event) {
+    event.preventDefault()
+
+    localStorage.clear()
+
+    window.open("../index.html", "_self")
 })

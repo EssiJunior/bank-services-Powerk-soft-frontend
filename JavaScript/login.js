@@ -38,6 +38,8 @@ async function displayErrorMesage(messageContainer) {
         messageContainer.innerHTML = ``
         validationContainer.setAttribute("style", "margin-top:6rem;")
         console.log(response)
+        localStorage.setItem("token", response.access_token)
+
 
         let url = ""
         if (response["user"] === "admin") {

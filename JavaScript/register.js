@@ -10,7 +10,7 @@ async function validateForm() {
         var confirmPassword = document.querySelector("#confirm-password-text").value
         var bank = document.querySelector("#bank-text").value
 
-        const response = await fetch("http://localhost:8000/user", {
+        const response = await fetch("https://ekfoka.deta.dev/user", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ const getElement = (selector) => {
 
 async function getUsername() {
     try {
-        const response = await fetch("http://localhost:8000/user")
+        const response = await fetch("https://ekfoka.deta.dev/user")
 
         if (!response.ok) {
             validated = false
@@ -49,7 +49,7 @@ const logout = getElement(".logout")
 console.log(tokenD)
 async function getUser() {
     try {
-        const response = await fetch("http://localhost:8000/user/this", {
+        const response = await fetch("https://ekfoka.deta.dev/user/this", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ transferForm.addEventListener('submit', function(event) {
 })
 async function transaction(amount, transactionID) {
     try {
-        const response = await fetch(`http://localhost:8000/user/${transactionID}`, {
+        const response = await fetch(`https://ekfoka.deta.dev/user/${transactionID}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ async function transaction(amount, transactionID) {
 
 async function transferToUser(amount, toUsername) {
     try {
-        const response = await fetch(`http://localhost:8000/user/transfer`, {
+        const response = await fetch(`https://ekfoka.deta.dev/user/transfer`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

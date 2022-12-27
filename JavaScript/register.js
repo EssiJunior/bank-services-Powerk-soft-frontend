@@ -14,7 +14,8 @@ async function validateForm() {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
                 username: username,
@@ -46,7 +47,7 @@ async function displayErrorMessage(messageContainer) {
         messageContainer.innerHTML = ``
         validationContainer.setAttribute("style", "margin-top:6rem;")
         console.log(response)
-        window.open("../main.html", "_self")
+        window.open("../index.html", "_self")
     } else {
         messageContainer.innerHTML = `
         <i class="fa-solid fa-triangle-exclamation"></i>

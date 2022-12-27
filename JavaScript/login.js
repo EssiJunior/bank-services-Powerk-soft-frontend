@@ -13,7 +13,8 @@ async function validateForm() {
             method: "POST",
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'accept': 'application/json'
+                'accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: `username=${username}&password=${password}`
         })
